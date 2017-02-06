@@ -1,0 +1,15 @@
+﻿
+<br /><br /><br />
+<h1>{{controller.bar.name}}</h1>
+<ul>
+    <li ng-repeat="review in controller.bar.reviews">
+        {{review.comment}}  -Rating: {{review.rating}}
+    </li>
+</ul>
+
+<h2>{{controller.drinks.name}}</h2>
+
+<button ng-click="controller.openReviewDialog()">Write a Review</button>
+
+<h2>Overall Rating:</h2>
+<p>{{controller.bar.rating}}</p>

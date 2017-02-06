@@ -1,0 +1,24 @@
+﻿<div class="parallax-one">
+    <div class="myDrinkReviews">
+        <h2 style="text-align:center">My Drink Reviews</h2><br/>
+
+      
+
+        <table class="table table-striped">
+
+
+            <tr>
+                <th>Drink Name</th>
+                <th>Comment</th>
+                <th>Rating</th>
+               
+            </tr>
+            <tr ng-repeat="review in controller.drinkReviews">
+                <td>{{review.drink.name}}</td>
+                <td>{{review.comment}}</td>
+                <td>{{review.rating}}</td>
+            
+            </tr>
+        </table>
+        </div>
+</div>

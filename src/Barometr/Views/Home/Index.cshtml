@@ -1,0 +1,120 @@
+<html ng-app="Barometr">
+<head>
+    <title>Barometr</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="196x196" href="/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="160x160" href="/favicon-160.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" href="/favicon-57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon-72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon-144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon-60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon-120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon-76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="/favicon-144.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <!-- ****** faviconit.com favicons ****** -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/bower_components/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+    <link href="~/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" rel="stylesheet" />
+    <link href="~/bower_components/angular-input-stars/angular-input-stars.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <base href="/" />
+</head>
+<body ng-controller="AccountController as account">
+    <div class="container-fluid">
+        <nav class="navbar navbar-fixed-top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></button>
+                <a href="#" class="navbar-brand"></a>
+                <a class="navbar-brand" ui-sref="home"><span><img src="~/images/RatingImages/BarometerLogo.png" alt="Barometr logo" style="max-height: 110%; max-width: 110%;" />|Barometr</span></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav" id="navbar-li">
+                    <li class="active">
+                        <a ng-show="!account.isLoggedIn()" ui-sref="home">Home</a>
+                        <a ng-show="account.isLoggedIn()" ui-sref="landingPage">Home</a>
+                    </li>
+                    <li>
+                        <a ui-sref="profile">Profile</a>
+                    </li>
+                    <li>
+                        <a ui-sref="login"  ng-show="!account.isLoggedIn()">Login</a>
+                        <a ui-sref="#" ng-click="account.logout()" ng-show="account.isLoggedIn()">Logout [{{account.getName()}}]</a>
+                    </li>
+                    <li><a ui-sref="register" ng-show="!account.isLoggedIn()">Sign Up</a></li>
+                    <li ng-if="account.getClaim('IsAdmin')" ng-controller="UserMetricController as metric">
+                        <a ng-click="metric.goToRequests()" ng-init="metric.getRequests(account.getClaim('IsAdmin'))"><span ng-show="metric.showRequestNum" class="badge pull-right">{{metric.requests}}</span>Requests</a>
+                    </li>
+                    <li class="dropdown">
+                        <a ui-sref="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            About
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref="about">About Us</a></li>
+                            <li><a ui-sref="contact">Contact Us</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header"><a href="#"> FAQ</a></li>
+                            <li><a ui-sref="#">Support</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a ui-sref="userBars" ng-show="account.isLoggedIn()">My Favorites</a></li>
+                    <li><a ui-sref="myBarsPage" ng-show="account.getClaim('IsUserAdmin')">My Bars</a></li>
+                </ul>
+                <form name="zipcodeForm" class="navbar-form navbar-right" id="tfnewsearch" ng-submit="zipcodeForm.$valid && account.searchSubmit(zipcode)" novalidate>
+                    <div class="form-group">
+                        <input type="search" class="form-control ng-pristine ng-invalid" placeholder="zipcode" ng-model="zipcode" ng-minlength="5" ng-maxlength="5" aria-expanded="false" style="opacity: 0.5" required />
+                    </div>
+                    <button type="submit" title="Search" class="btn" aria-expanded="false" style="color: #7e7e7e"><i class="glyphicon glyphicon-search"></i></button>
+                </form>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid">
+        <ui-view></ui-view>
+    </div>
+
+    <!-- Library Files -->
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-touch/angular-touch.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeuYAuI3iYUKWNOxTtbSgtDvJLjzBNo4g"></script>
+    <script src="~/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
+    <script src="~/bower_components/angularjs-google-places/dist/angularjs-google-places.min.js"></script>
+    <script src="~/bower_components/jquery/dist/jquery.js"></script>
+    <script src="~/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/bower_components/angular-input-stars/angular-input-stars.js"></script>
+
+    <!-- App Files-->
+    <script src="/ngapp/app.js"></script>
+    <script src="/ngapp/controllers/controllers.js"></script>
+    <script src="/ngapp/controllers/profileController.js"></script>
+    <script src="~/ngApp/controllers/SearchController.js"></script>
+    <script src="~/ngApp/controllers/menuController.js"></script>
+    <script src="~/ngApp/controllers/requestsController.js"></script>
+    <script src="/ngapp/services/services.js"></script>
+    <script src="~/ngApp/services/searchService.js"></script>
+    <script src="~/ngApp/controllers/UserBarController.js"></script>
+
+    <!-- Security -->
+    <script src="/ngapp/controllers/accountcontroller.js"></script>
+    <script src="/ngapp/services/accountservice.js"></script>
+
+</body>
+</html>
